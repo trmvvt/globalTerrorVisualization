@@ -7,11 +7,12 @@ Update: Feb 1, 2016
 
 function drawPanel(firstLoad){
 
-
+  
 	if(firstLoad){
 	view = "View By Attack Type";
 	myyear = 1971;
 	}
+
 
 	document.getElementById("panel-head").innerHTML = "Year " + myyear + " | " + view;
 
