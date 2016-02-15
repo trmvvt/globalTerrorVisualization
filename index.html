@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Global Terrorism Visualization</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="D3 Visualization" lang="en" content="Visualization for Global Terrorism with D3">
+		<meta name="Poushali Banerjee" content="">
+		<meta name="robots" content="index, follow">
+
+		<!-- icons -->
+		<link rel="shortcut icon" href="favicon.ico">
+
+		<!-- Bootstrap Core CSS file -->
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+		<!-- CSS rules -->
+		<link rel="stylesheet" href="assets/css/styles.css">
+		<link rel="stylesheet" href="assets/css/main.css">
+
+		<!-- Conditional comment containing JS files for IE6 - 8 -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+		<!-- Navigation -->
+	    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<div class="container-fluid">
+
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Visualizing Global Terrorism over the years with D3</a>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+		<!-- /.navbar -->
+
+		<!-- Page Content -->
+		<div class="container-fluid">
+
+				<div class="row">
+				<div class="col-sm-8">				
+
+					<!-- Comments -->
+					<h3>Introduction</h3>
+					<div class="well">
+						<div class="media">
+							<div class="media-body">
+								<h4 class="margin-t-0"><a href="http://www-scf.usc.edu/~poushalb/mywebsite/" target="_blank">Author: Poushali Banerjee</a></h4>
+								<p><a href="https://classes.usc.edu/term-20151/course/inf-554/" target="_blank">University of Southern California, Information Visualization 554</a></p>
+								<p>1. Move the slider to display information for a particular year. The attacks for that year are projected onto the map by latitude and longitude values. A breakdown of the attacks by different categories is displayed on the side. * Year 1993 is a special case. GTD contains no data for this year.</p>
+								<p>2. View attacks from different perspectives: select a different view from the dropdown. You can view the attacks by their attack type, the kind of weapons used and the type of targets. I am also working on a few more perspectives of the data which will be available soon.</p>
+								<p>3. Zoom and pan the map for better viewing. Hover for tooltips.</p>
+
+								<p>A note about Missing data: </p>
+								</p>Some attacks are missing their latitude and longitude values in the data from GTD. As a result it is not possible to project the location of these attacks on the map. However, the breakdown on the side panel includes this data. I have considered them in order to provide more accurate breakdown. This will therefore cause a difference in the total number of attacks as viewed on the right side panel vs those projected on the map. I am working on collecting location data about these attacks and will update this visualization as they become available.</p>
+							</div>
+						</div>
+					</div>
+					<hr>
+				</div>
+				<div class="col-sm-4">				
+
+					<!-- Comments -->
+					<h3>Data Source</h3>
+					<div class="well">
+						<div class="media">
+							<div class="media-body">
+								<h4 class="margin-t-0"><a href="http://www.start.umd.edu/gtd/" target="_blank">Global Terrorism Database</a></h4>
+								<p><a href="http://www.start.umd.edu/gtd/" target="_blank">http://www.start.umd.edu/gtd/</a></p>
+								<p>The Global Terrorism Database (GTD) is an open-source database including information on terrorist events around the world from 1970-2014.</p>
+								<p>The National Consortium for the Study of Terrorism and Responses to Terrorism (START) makes the GTD available via this online interface in an effort to increase understanding of terrorist violence so that it can be more readily studied and defeated.</p>
+
+								<h4 class="margin-t-0"><a href="http://www.naturalearthdata.com/">Natural Earth</a></h4>
+								<p><a href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a></p>
+								<p>The map and its projections are drawn using data from Natural Earth. A public domain map dataset featuring tightly integrated vector and raster data.</p>
+							</div>
+						</div>
+						<a name="startviz"></a>
+					</div>
+					<hr>
+					
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="page-header">
+						   <div id="tooltip4"  class="hidden"> </div>
+					</div>			    
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-sm-8">
+					<!-- Image -->
+					<figure class="margin-b-2">
+					        <div id="tooltip"  class="hidden"> </div>
+   				 			<div id="tooltip2"  class="hidden"> </div> 
+     						<div id="tooltip3"  class="hidden"> </div> 
+					<!--<img class="img-responsive" src="http://placehold.it/900x400" alt="">
+					<figcaption class="margin-t-h">Caption here</figcaption>-->
+					</figure>
+				</div>
+				<div class="col-sm-4">
+					    <ul class="nav nav-pills">
+					    	<div class="btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Change Data View <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+					          <li><a href="#startviz">View By Attack Type</a></li>
+					          <li><a href="#startviz">View By Weapon Type</a></li>
+					          <li><a href="#startviz">View By Target Type</a></li>
+					          <!--<li class="divider"></li>
+					          <li><a href="">Separated link</a></li>-->
+					        </ul>
+							</div>
+
+    					</ul>
+    					<br>
+					<!-- Panel -->
+					<div class="panel panel-default">
+						<div id="panel-head" class="panel-heading">
+							<h4 class="panel-title">Loading Panel ...</h4>
+						</div>
+						<div class="panel-body">
+							
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<hr>
+			<footer class="margin-tb-3">
+				<div class="row">
+					<div class="col-lg-12">
+					</div>
+				</div>
+			</footer>
+		</div>
+		<!-- /.container-fluid -->
+
+		<!-- JQuery scripts -->
+	    <script src="assets/js/jquery-1.11.2.min.js"></script>
+
+		<!-- Bootstrap Core scripts -->
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/d3/d3.min.js"></script>
+
+		<!-- Project scripts -->
+		<script type="text/javascript" src="assets/js/topojson.v0.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/core/initialize.js"></script>
+		<script type="text/javascript" src="assets/js/core/drawComponents.js"></script>
+		<script type="text/javascript" src="assets/js/core/drawMap.js"></script>
+		<script type="text/javascript" src="assets/js/core/drawBrush.js"></script>
+		<script type="text/javascript" src="assets/js/core/drawHeaderChart.js"></script>
+		<script type="text/javascript" src="assets/js/core/drawPanel.js"></script>
+		<script>
+
+			var filteredArrayByYear=[];  
+			initialize();
+
+		</script>
+  </body>
+</html>
+
