@@ -7,7 +7,7 @@ Update: Feb 1, 2016
 
 function initialize(){
 
-	var view;
+	//var view;
 	var myyear;
 
 	$(document).ready(function(){
@@ -21,6 +21,7 @@ function initialize(){
 
 	function handleChange(selectText){
 
+		console.log("printing from handleChange " + selectText);
 		view = selectText;
 	 	drawPanel(false);
 
